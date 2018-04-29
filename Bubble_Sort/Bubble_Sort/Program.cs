@@ -42,6 +42,54 @@ namespace Bubble_Sort
 
         }
 
+        //split
+        static int[] MergeSort(int[] array, int low, int high)
+        {
+            //recursive
+            if (high - low <= 1)
+            {
+                return array;
+            }
+
+            int mid = (low + high) / 2;
+            MergeSort(array, low, mid);
+            MergeSort(array, mid, high);
+
+            Merge(array, low, mid);
+            Merge(array, mid + 1, high);
+            return array;
+        }
+
+        static int[] Merge(int[] array, int low, int high)
+        {
+            //array1 = low to mid
+            //array2 = mid+1 to high
+
+            bool sorting = true;
+            while (sorting)
+            {
+                sorting = false;
+                for (int i = 1; i < array.Length; i++)
+                {
+                    if (array[i] < array[i - 1])
+                    {
+                        sorting = true;
+                        //swap
+                        int tempValue = array[i];
+                        array[i] = array[i - 1];
+                        array[i - 1] = tempValue;
+                    }
+
+                }
+            }
+
+
+            return array;
+            // throw new NotImplementedException();
+        }
+
+
+
         static int[] SelectionSort(int[] array)
         {
             //find the smallest number in the array
@@ -87,18 +135,27 @@ namespace Bubble_Sort
             }
             return array;
         }
+
+
+
+
+
+
+
+
         static void Main(string[] args)
         {
-            int[] array = RandomArray(10, new Random());
+            int[] array = RandomArray(20, new Random());
+            int[] copy = array.OrderBy(x => x).ToArray();
 
             //array = BubbleSort(array);
             //array = SelectionSort(array);
-            array = InsertionSort(array);
-            //print array
-
+            
+            array = MergeSort(array, 0, array.Length);
+           
             for (int i = 0; i < array.Length; i++)
             {
-                Console.Write($"{array[i]} ");
+                Console.WriteLine($"{array[i]} {copy[i]}");
             }
             Console.ReadKey();
         }
