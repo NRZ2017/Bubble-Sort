@@ -137,7 +137,30 @@ namespace Bubble_Sort
         }
 
 
+        static int[] QuickSort(int[] array)
+        {
+            int left = 0;
+            int right = array.Length - 2;
+            int pivot = array.Length - 1;
+            for (int i = 0; i < right; i++)
+            {
+                left++;
+                for (int u = array.Length; u >= 0; u++)
+                {
+                    right--;
+                    if (left > right)
+                    {
+                        pivot = left - 1;
+                        pivot = right + 1;
+                        left = 0;
+                    }
+                }
+            }
 
+
+            return array;
+            // throw new NotImplementedException();
+        }
 
 
 
@@ -150,12 +173,12 @@ namespace Bubble_Sort
 
             //array = BubbleSort(array);
             //array = SelectionSort(array);
-            
-            array = MergeSort(array, 0, array.Length);
-           
+
+            array = QuickSort(array);
+
             for (int i = 0; i < array.Length; i++)
             {
-                Console.WriteLine($"{array[i]} {copy[i]}");
+                Console.WriteLine($"{copy[i]}");
             }
             Console.ReadKey();
         }
