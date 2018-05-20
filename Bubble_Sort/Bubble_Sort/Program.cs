@@ -137,26 +137,23 @@ namespace Bubble_Sort
         }
 
 
-        static int[] QuickSort(int[] array)
+        static int[] QuickSort(int[] array, int right, int left)
         {
-            int left = 0;
-            int right = array.Length - 2;
-            int pivot = array.Length - 1;
-            for (int i = 0; i < right; i++)
+            int wall = left - 1;
+            int pivot = right;
+            for (int i = left; i < right - 1; i++)
             {
-                left++;
-                for (int u = array.Length; u >= 0; u++)
+                if (array[i] < array[pivot])
                 {
-                    right--;
-                    if (left > right)
-                    {
-                        pivot = left - 1;
-                        pivot = right + 1;
-                        left = 0;
-                    }
+                    wall++;
+
+                    int temp = array[i];
+                    array[i] = array[wall];
+                    array[wall] = temp;
                 }
             }
 
+            pivot = wall;
 
             return array;
             // throw new NotImplementedException();
@@ -169,16 +166,15 @@ namespace Bubble_Sort
         static void Main(string[] args)
         {
             int[] array = RandomArray(20, new Random());
-            int[] copy = array.OrderBy(x => x).ToArray();
 
             //array = BubbleSort(array);
             //array = SelectionSort(array);
 
-            array = QuickSort(array);
+            //array = QuickSort(array);
 
             for (int i = 0; i < array.Length; i++)
             {
-                Console.WriteLine($"{copy[i]}");
+                Console.WriteLine($"{array[i]}");
             }
             Console.ReadKey();
         }
