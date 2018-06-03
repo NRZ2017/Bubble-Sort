@@ -137,11 +137,21 @@ namespace Bubble_Sort
         }
 
 
-        static int[] QuickSort(int[] array, int right, int left)
+        static void QuickSort(int[] array, int right, int left)
+        {
+            if (left < right)
+            {
+                int pivot = Partition(array, right, left);
+
+
+            }
+        }
+
+        static int Partition(int[] array, int right, int left)
         {
             int wall = left - 1;
             int pivot = right;
-            for (int i = left; i < right - 1; i++)
+            for (int i = left; i < right; i++)
             {
                 if (array[i] < array[pivot])
                 {
@@ -153,9 +163,9 @@ namespace Bubble_Sort
                 }
             }
 
-            pivot = wall;
 
-            return array;
+
+            return wall;
             // throw new NotImplementedException();
         }
 
