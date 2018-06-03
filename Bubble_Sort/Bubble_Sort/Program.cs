@@ -137,23 +137,24 @@ namespace Bubble_Sort
         }
 
 
-        static void QuickSort(int[] array, int right, int left)
+        static void QuickSort(int[] array, int left, int right)
         {
             if (left < right)
             {
-                int pivot = Partition(array, right, left);
+                int pivot = Partition(array, left, right);
 
-
-            }
+                QuickSort(array, left, pivot);                
+                QuickSort(array, pivot + 1, right);
+            }            
         }
 
-        static int Partition(int[] array, int right, int left)
+        static int Partition(int[] array, int left, int right)
         {
             int wall = left - 1;
             int pivot = right;
             for (int i = left; i < right; i++)
             {
-                if (array[i] < array[pivot])
+                if (array[i] <= array[pivot])
                 {
                     wall++;
 
@@ -163,7 +164,10 @@ namespace Bubble_Sort
                 }
             }
 
-
+            //swap wall and pivot
+            int thing = array[wall + 1];
+            array[wall + 1] = array[pivot];
+            array[pivot] = thing;
 
             return wall;
             // throw new NotImplementedException();
@@ -182,9 +186,20 @@ namespace Bubble_Sort
 
             //array = QuickSort(array);
 
+            //array = new int[] { 7, 4, 3, 6, 2, 1, 5, 1 };
+
             for (int i = 0; i < array.Length; i++)
             {
-                Console.WriteLine($"{array[i]}");
+                Console.Write($"{array[i]}, ");
+            }
+
+            Console.WriteLine();
+
+            QuickSort(array, 0, array.Length - 1);
+
+            for (int i = 0; i < array.Length; i++)
+            {
+                Console.Write($"{array[i]}, ");
             }
             Console.ReadKey();
         }
